@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Create Record</h1>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <label>Record Type</label>
+            <select id="selectedRecordType" hx-get="/records/create_form/" hx-target="#create_form" class="form-control mb-4" onchange="selectRecordType()">
+                <option selected value="">-- Type --</option>
+                <option value="MOISTURE_CONTENT">Moisture Content</option>
+                <option value="SIZE_CHECK">Size Check</option>
+                <option value="KILN_TIME">Kiln Time</option>
+            </select>
+            <div class="w-100" id="create_form"></div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block inline_javascript %}
+<script>
+    window.onload= function(){selectRecordType()};
+
+    function selectRecordType(){
+        $("#selectedRecordType").attr('hx-vals', JSON.stringify({record_type: $("#selectedRecordType").val()}));
+    }
+</script>
+{% endblock inline_javascript %}
